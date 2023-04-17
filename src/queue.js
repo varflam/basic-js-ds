@@ -14,22 +14,19 @@ const { ListNode } = require('../extensions/list-node.js');
  * queue.getUnderlyingList() // returns { value: 3, next: null }
  */
 class Queue extends ListNode {
-  constructor(x) {
-    super();
-    this.value = x;
-    this.next = null;
-  }
 
   getUnderlyingList() {
     return this;
   }
 
   enqueue(value) {
-    let current = this;
 
-    if(!current.value) {
-      current.value = value;
+    if(!this.value) {
+      this.value = value;
+      this.next = null;
     } else {
+      let current = this;
+
       while(current.next) {
         current = current.next;
       }
@@ -40,25 +37,14 @@ class Queue extends ListNode {
 
   dequeue() {
     let deletedValue = this.value;
-    let current = this;
     let next = this.next;
 
-    current.value = next.value;
-    current.next = next.next;
+    this.value = next.value;
+    this.next = next.next;
 
     return deletedValue;
   }
 }
-
-const queue = new Queue();
-queue.enqueue(1);
-queue.enqueue(3);
-queue.enqueue(5);
-queue.enqueue(6);
-queue.enqueue(8);
-console.log(queue.dequeue());
-console.log(queue.getUnderlyingList());
-console.log(queue);
 
 module.exports = {
   Queue
